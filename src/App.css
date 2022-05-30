@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.image-news{
+  width: 300px;
+}
+
+td, th{
+  border: #282c34 solid;
+}

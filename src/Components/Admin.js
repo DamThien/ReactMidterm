@@ -95,7 +95,7 @@ class List extends Component {
     onSave = (event) => {
         event.preventDefault();
         if (this.state.id == '') {
-            if (this.state.name !== '' && this.state.image !== '' && this.data.content !== '') {
+            if (this.state.name !== '' && this.state.image !== '' && this.state.content !== '') {
                 axios({
                     method: 'POST',
                     url: `https://61bc10bdd8542f0017824522.mockapi.io/products/`,
@@ -104,7 +104,6 @@ class List extends Component {
                         image: this.state.image,
                         content: this.state.content,
                     }
-
                 }).then(res => {
                     this.componentDidMount();
                     alert("Successfully");
@@ -121,7 +120,6 @@ class List extends Component {
                     image: this.state.image,
                     content: this.state.content,
                 }
-
             }).then(res => {
                 this.componentDidMount();
                 alert("Successfully");
@@ -157,6 +155,7 @@ class List extends Component {
             }
         });
     }
+
     render() {
         return (
             <div className="container">
@@ -196,14 +195,14 @@ class List extends Component {
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail2">Content</label>
                                 <input
-                                    type="number"
-                                    name="oldPrice"
-                                    onChange={this.onChange}
+                                    type="text"
+                                    name="content"
                                     value={this.state.content}
+                                    onChange={this.onChange}
                                     className="form-control"
-                                    id="exampleInputEmail2"
+                                    id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
-                                    placeholder="Enter old price"
+                                    placeholder="Enter content"
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary">
@@ -211,39 +210,48 @@ class List extends Component {
                             </button>
                         </form>
                     </div>
-                    <div className="col-8">
-                        <div className="row">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>TITLE</th>
+                                <th>IMAGE</th>
+                                <th>CONTENT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
                             {
                                 this.state.products.map((product) => (
+                                    <tr>
+                                        <td>{product.id}</td>
+                                        <td><h5 className="card-title">{product.name}</h5></td>
+                                        <td><img className="image-news" src={product.image} alt="Card image cap" /></td>
 
-                                    <div className="card col-4" style={{ width: "18rem" }}>
-                                        <img className="card-img-top" src={product.image} alt="Card image cap" />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{product.name}</h5>
-                                            <div className="row">
-                                                <p>
-                                                {product.content}
-                                                </p>
-                                            </div>
+                                        <td><h8 className="card-title">{product.content}</h8></td>
+
+                                        
                                             <button className="btn btn-primary" onClick={() => this.showEditProduct(product.id)}>
                                                 Edit
                                             </button>
+                                        
+                                        
                                             <button className="btn btn-danger" onClick={() => this.onDelete(product.id)}>
                                                 delete
                                             </button>
-
-                                        </div>
-                                    </div>
+                                        
+                                    </tr>
 
                                 ))
                             }
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
+
         );
     }
+
 }
 
 export default List;
