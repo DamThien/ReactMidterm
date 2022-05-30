@@ -19,6 +19,7 @@ class List extends Component {
         this.showEditProduct = this.showEditProduct.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
+
     componentDidMount() {
         var { match } = this.props;
         if (match) {
@@ -32,10 +33,8 @@ class List extends Component {
                 this.setState({
                     id: data.id,
                     name: data.name,
-                    price: data.price,
                     image: data.image,
-                    quantity: data.quantity,
-                    oldPrice: data.oldPrice,
+                    content: data.content,
                 });
             }).catch(err => {
             });
@@ -49,6 +48,7 @@ class List extends Component {
             document.getElementById('image-edit').style.display = 'block';
         }
     }
+
     getProduct = (id) => {
         for (var i = 0; i < this.state.products.length; i++) {
             if (this.state.products[i].id === id) {
@@ -57,30 +57,32 @@ class List extends Component {
         }
         return null;
     }
+
     onChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
         });
     }
+
     onChangeImage = (event) => {
         this.setState({
             [event.target.name]: "images/" + event.target.files[0].name,
         });
         console.log(event.target.files[0].name);
     }
+
     showEditProduct = (id) => {
         var product = this.getProduct(id);
         this.setState({
             id: product.id,
             name: product.name,
-            price: product.price,
-            oldPrice: product.oldPrice,
             image: product.image,
-            quantity: product.quantity,
+            content: product.content,
         });
         document.getElementById('image-edit').style.display = 'block';
         alert(id);
     }
+
     getIndexProducts = (id) => {
         for (var i = 0; i < this.state.products.length; i++) {
             if (this.state.products[i].id === id) {
@@ -89,19 +91,18 @@ class List extends Component {
         }
         return -1;
     }
+
     onSave = (event) => {
         event.preventDefault();
         if (this.state.id == '') {
-            if (this.state.name !== '' && this.state.price !== '' && this.state.quantity !== '' && this.state.image !== '' && this.state.oldPrice !== '') {
+            if (this.state.name !== '' && this.state.image !== '' && this.data.content !== '') {
                 axios({
                     method: 'POST',
                     url: `https://61bc10bdd8542f0017824522.mockapi.io/products/`,
                     data: {
                         name: this.state.name,
-                        price: this.state.price,
-                        oldPrice: this.state.oldPrice,
                         image: this.state.image,
-                        quantity: this.state.quantity,
+                        content: this.state.content,
                     }
 
                 }).then(res => {
@@ -117,10 +118,8 @@ class List extends Component {
                 url: `https://61bc10bdd8542f0017824522.mockapi.io/products/${this.state.id}`,
                 data: {
                     name: this.state.name,
-                    price: this.state.price,
-                    oldPrice: this.state.oldPrice,
                     image: this.state.image,
-                    quantity: this.state.quantity,
+                    content: this.state.content,
                 }
 
             }).then(res => {
@@ -131,10 +130,8 @@ class List extends Component {
         this.setState({
             id: '',
             name: '',
-            quantity: '',
-            price: '',
-            oldPrice: '',
             image: '',
+            content: '',
         });
     }
     onDelete = (id) => {
@@ -180,38 +177,16 @@ class List extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="exampleInputPassword1">Quantity</label>
-                                <input
-                                    type="text"
-                                    name="quantity"
-                                    onChange={this.onChange}
-                                    value={this.state.quantity}
-                                    className="form-control"
-                                    id="exampleInputPassword1"
-                                    placeholder="Quantity"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail2">Price</label>
-                                <input
-                                    type="text"
-                                    name="price"
-                                    onChange={this.onChange}
-                                    value={this.state.price}
-                                    className="form-control"
-                                    id="exampleInputEmail2"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter price"
-                                />
-                            </div>
-                            <div className="form-group">
                                 <label>Image</label>
                                 <input
                                     type="text"
                                     name="image"
-                                    onChange={this.onChangeImage}
+                                    value={this.state.image}
+                                    onChange={this.onChange}
                                     className="form-control"
-                                    placeholder="image"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Enter link"
                                 />
                             </div>
                             <div className="form-group" id="image-edit" style={{ display: "none" }}>
@@ -219,12 +194,12 @@ class List extends Component {
                                 <img src={this.state.image} style={{ width: "100px" }} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="exampleInputEmail2">Old price</label>
+                                <label htmlFor="exampleInputEmail2">Content</label>
                                 <input
                                     type="number"
                                     name="oldPrice"
                                     onChange={this.onChange}
-                                    value={this.state.oldPrice}
+                                    value={this.state.content}
                                     className="form-control"
                                     id="exampleInputEmail2"
                                     aria-describedby="emailHelp"
@@ -246,18 +221,10 @@ class List extends Component {
                                         <div className="card-body">
                                             <h5 className="card-title">{product.name}</h5>
                                             <div className="row">
-                                                <div className="col-6">
-                                                    {
-                                                        product.price
-                                                    }
-                                                </div>
-                                                <div className="col-6">
-                                                    {
-                                                        product.oldPrice
-                                                    }
-                                                </div>
+                                                <p>
+                                                {product.content}
+                                                </p>
                                             </div>
-
                                             <button className="btn btn-primary" onClick={() => this.showEditProduct(product.id)}>
                                                 Edit
                                             </button>
