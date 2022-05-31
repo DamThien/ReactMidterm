@@ -9,12 +9,7 @@ class Header extends Component {
                 <div class="top_header">
                     <h1>THANH NIÊN</h1>
                 </div>
-                <div>
-                    <ul class="nav_bar">
-                        <li>Thế giới</li>
-                        <li>Chỉnh sửa</li>
-                    </ul>
-                </div>
+                
             </div>
 
         )

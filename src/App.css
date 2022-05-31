@@ -44,3 +44,7 @@
 td, th{
   border: #282c34 solid;
 }
+
+table{
+  margin: auto;
+}

@@ -9,10 +9,8 @@ class List extends Component {
             products: [],
             id: '',
             name: '',
-            price: '',
             image: '',
-            quantity: '',
-            oldPrice: '',
+            content: ''
         }
         this.onDelete = this.onDelete.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -64,12 +62,12 @@ class List extends Component {
         });
     }
 
-    onChangeImage = (event) => {
-        this.setState({
-            [event.target.name]: "images/" + event.target.files[0].name,
-        });
-        console.log(event.target.files[0].name);
-    }
+    // onChangeImage = (event) => {
+    //     this.setState({
+    //         [event.target.name]: "images/" + event.target.files[0].name,
+    //     });
+    //     console.log(event.target.files[0].name);
+    // }
 
     showEditProduct = (id) => {
         var product = this.getProduct(id);
@@ -80,7 +78,7 @@ class List extends Component {
             content: product.content,
         });
         document.getElementById('image-edit').style.display = 'block';
-        alert(id);
+        // alert(id);
     }
 
     getIndexProducts = (id) => {
@@ -156,14 +154,16 @@ class List extends Component {
         });
     }
 
+
     render() {
         return (
             <div className="container">
+                                
                 <div className="row">
                     <div className="col-4">
                         <form onSubmit={this.onSave}>
                             <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Name</label>
+                                <label htmlFor="exampleInputEmail1">Title</label>
                                 <input
                                     type="text"
                                     name="name"
@@ -172,7 +172,7 @@ class List extends Component {
                                     className="form-control"
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
-                                    placeholder="Enter name"
+                                    placeholder="Enter title"
                                 />
                             </div>
                             <div className="form-group">
@@ -222,7 +222,9 @@ class List extends Component {
                         <tbody>
 
                             {
-                                this.state.products.map((product) => (
+                                this.state.products.map
+                                (
+                                    (product) => (
                                     <tr>
                                         <td>{product.id}</td>
                                         <td><h5 className="card-title">{product.name}</h5></td>
@@ -241,8 +243,8 @@ class List extends Component {
                                             </button>
                                         
                                     </tr>
-
-                                ))
+                                    )
+                                )
                             }
                         </tbody>
                     </table>

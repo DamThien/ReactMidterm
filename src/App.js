@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './Components/Header';
-import Admin from './Components/Admin';
+import List from './Components/Admin';
+import Content from './Components/Content';
+import { Top_content } from './Components/Content';
 
 function App() {
   return (
@@ -22,8 +24,12 @@ function App() {
     //   </header>
     // </div>
     <div>
+      
       <Header></Header>
-      <Admin></Admin>
+      <Top_content></Top_content>
+
+      <List></List>
+     
     </div>
   );
 }
