@@ -41,21 +41,21 @@ const print = (arr,status)=>{
       {
         if (array.length - 1 === index) {
         main = (
-          <div className="left" class="">
+          <div className="left">
             <br></br>
-            <h3> {products.title}</h3>
-            <img src={products.image} alt="Lamp"></img>
+            <h3> {products.name}</h3>
+            <img src={products.image} alt="Lamp" ></img>
                 <p>{products.content}</p>
           </div>
         );
         } else {
            list[index]= (
             <div className="row" id="newleft">
-                <div className="col-md-8"><h2>{products.title}</h2></div>   
+                <div className="col-md-8"><h2>{products.name}</h2></div>                   
                 <div className="col-md-4">
                 <img style={{width:"100%"}} src={products.image} alt="Lamp"></img>
                 </div>
-                <div className="col-md-8"><p>{products.content}</p></div>
+               <div className="col-md-8"><p>{products.content}</p></div>
              </div>
            );
         }
